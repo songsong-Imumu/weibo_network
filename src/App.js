@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import logo from "./logo.svg";
 import "./App.css";
 import * as d3 from "d3";
-import data from "./data9.json";
+import data from "./data12.json";
 
 class App extends React.Component {
   componentDidMount = () => {
@@ -15,8 +15,8 @@ class App extends React.Component {
     const simulation = d3
       .forceSimulation(nodes)
       .force("link", d3.forceLink(edges))
-      .force("charge", d3.forceManyBody().strength(-60))
-      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("charge", d3.forceManyBody().strength(-15))
+      .force("center", d3.forceCenter(width / 2, height / 2 + 10))
       .force("x", d3.forceX())
       .force("y", d3.forceY())
       .on("tick", ticked);
@@ -24,7 +24,7 @@ class App extends React.Component {
     const link = svg
       .append("g")
       .attr("stroke", "lightgray")
-      .attr("stroke-width", 1)
+      .attr("stroke-width", 0.5)
       .selectAll("line")
       .data(edges)
       .join("line");
@@ -36,7 +36,7 @@ class App extends React.Component {
       .selectAll("circle")
       .data(nodes)
       .join("circle")
-      .attr("r", 4)
+      .attr("r", 2.5)
       .attr("opacity", (d) => (d.name === "" ? 0 : 1))
       .on("mouseover", function (e, d) {
         d3.select(this).append("title").text(d.name);
