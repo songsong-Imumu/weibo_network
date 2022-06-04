@@ -68,3 +68,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+Run("D:\Desktop\学校\作业\软件质量保证与测试\实验11\实验十一素材\zhuomianjisuanqi\calc.exe")
+WinWaitActive("计算器")
+ControlClick("计算器", "", 126)
+ControlClick("计算器", "", 92)
+ControlClick("计算器", "", 128)
+ControlClick("计算器", "", 112)
+;$ResultTemp = WinGetText("计算器")
+;$ResultTemp = StringRegExpReplace($Result, "(?m)[\n|\r]", "")
+
+;Local $ResultT = StringSplit($ResultTemp,"M")
+;Local $ResultTemp = $ResultT[1]
+$Result = StringSplit(StringRegExpReplace(WinGetText("计算器"), "(?m)[\n|\r]", ""),".")[1]
+FileWriteLine( "D:\Desktop\result.txt", $Result)
+if $Result == "6" Then
+   MsgBox(0,"Test", "True! Result is .")
+Else
+   MsgBox(0,"Test1", "Result is false.")
+EndIf

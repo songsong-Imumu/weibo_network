@@ -17,7 +17,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d public"
   },
   "eslintConfig": {
     "extends": [
@@ -37,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://songsong-Imumu.github.io/weibo-network"
+  "homepage": "https://songsong-Imumu.github.io/weibo_network"
 }

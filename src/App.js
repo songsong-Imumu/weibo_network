@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import logo from "./logo.svg";
 import "./App.css";
 import * as d3 from "d3";
-import data from "./data.json";
+import data from "./data12.json";
 
 class App extends React.Component {
   componentDidMount = () => {
@@ -15,14 +15,16 @@ class App extends React.Component {
     const simulation = d3
       .forceSimulation(nodes)
       .force("link", d3.forceLink(edges))
-      .force("charge", d3.forceManyBody().strength(-10))
-      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("charge", d3.forceManyBody().strength(-15))
+      .force("center", d3.forceCenter(width / 2, height / 2 + 10))
+      .force("x", d3.forceX())
+      .force("y", d3.forceY())
       .on("tick", ticked);
     // console.log(nodes, edges);
     const link = svg
       .append("g")
       .attr("stroke", "lightgray")
-      .attr("stroke-width", 1)
+      .attr("stroke-width", 0.5)
       .selectAll("line")
       .data(edges)
       .join("line");
@@ -34,7 +36,12 @@ class App extends React.Component {
       .selectAll("circle")
       .data(nodes)
       .join("circle")
-      .attr("r", 3);
+      .attr("r", 2.5)
+      .attr("opacity", (d) => (d.name === "" ? 0 : 1))
+      .on("mouseover", function (e, d) {
+        d3.select(this).append("title").text(d.name);
+      })
+      .call(drag(simulation));
 
     function ticked() {
       link
@@ -44,6 +51,31 @@ class App extends React.Component {
         .attr("y2", (d) => d.target.y);
 
       node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    }
+
+    function drag(simulation) {
+      function dragstarted(event) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        event.subject.fx = event.subject.x;
+        event.subject.fy = event.subject.y;
+      }
+
+      function dragged(event) {
+        event.subject.fx = event.x;
+        event.subject.fy = event.y;
+      }
+
+      function dragended(event) {
+        if (!event.active) simulation.alphaTarget(0);
+        event.subject.fx = null;
+        event.subject.fy = null;
+      }
+
+      return d3
+        .drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
     }
   };
   render() {
