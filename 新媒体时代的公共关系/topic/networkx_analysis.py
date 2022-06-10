@@ -34,6 +34,18 @@ n = len(nodes)
 m = len(edges)
 
 
-print('网络的密度',m / (n * (n - 1) / 2))
-print('网络的聚类系数',nx.average_clustering(G))
-print('网络的平均距离',nx.degree_centrality(G))
+# print('网络的密度',m / (n * (n - 1) / 2))
+# print('网络的聚类系数',nx.average_clustering(G))
+# print('网络的平均距离',nx.degree_centrality(G))
+
+matrix = nx.adj_matrix(G).todense()
+from sklearn.cluster import SpectralClustering
+sc = SpectralClustering(affinity='precomputed', n_init=100,assign_labels='discretize')
+new = sc.fit_predict(matrix)
+print(list(new))
+
+# newG = nx.k_core(G,k=2)
+# print(newG.nodes())
+# print(newG.edges())
+# print(len(newG.nodes))
+# print(len(newG.edges))

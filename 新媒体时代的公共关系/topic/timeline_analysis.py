@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('./topic/人民日报评人教版数学教材配图争议.csv')
-df = pd.read_csv('./topic/人教版数学教材.csv')
 
 content = df['content']
 time = df['publish_time']
