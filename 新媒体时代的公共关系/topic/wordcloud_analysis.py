@@ -15,8 +15,10 @@ time_split = ['2022-05-26 00:','2022-05-27 10:','2022-05-27 14:','2022-05-29 00:
 contents = ''
 dict = {}
 for i,t in enumerate(publish_time):
-    if t >= time_split[3] and t<= time_split[4]:
-        words = jieba.lcut(content[i])
+    if t >= time_split[0] and t<= time_split[1]:
+        con = content[i].replace('人民日报评人教版数学教材配图争议',' ')
+        print(con)
+        words = jieba.lcut(con)
         for w in words:
             if w in stop_words:
                 continue

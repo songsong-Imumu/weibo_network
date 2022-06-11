@@ -55,16 +55,26 @@ def sentiment_score(input_file, text_col = 'content'):
 
 # sentiment_score('./topic/test.csv')
 # print(averages)
-# count = 0
-# for a in averages:
-#     if a >= 0.55 and a < 0.6:
-#         count += 1
-# print(count)
+
 df = pd.read_csv('./topic/人民日报评人教版数学教材配图争议.csv')
 # content = df['content']
 # print(list(content))
 score = list(df['sentiment_score'])
+count1 = 0
+count0 = 0
+count11 = 0
+for s in score:
+    if s >= 0.6:
+        count1 += 1
+    elif s >= 0.55:
+        count0 += 1
+    else:
+        count11 += 1
+print(len(score))
+print(count1)
+print(count0)
+print(count11)
 # print(score)
 # print(len(score))
-plt.plot(range(len(score)),score)
-plt.show()
+# plt.plot(range(len(score)),score)
+# plt.show()
